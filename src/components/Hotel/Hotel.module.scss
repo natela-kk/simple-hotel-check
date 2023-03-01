@@ -1,0 +1,30 @@
+.hotel {
+    padding: 16px;
+    padding-left: 88px;
+    box-sizing: border-box;
+    line-height: 22px;
+    letter-spacing: -0.408px;
+    color: $text_dark;
+}
+
+.hotelTitle {
+    font-weight: 300;
+    font-size: 17px;
+}
+
+.hotelDate,
+.hotelDaysCount {
+    font-weight: 400;
+    font-size: 14px;
+    color: $text_light;
+}
+
+.hotelPriceTitle {
+    font-weight: 300;
+    font-size: 11px;
+}
+
+.hotelPriceCount {
+    font-weight: 400;
+    font-size: 17px;
+}

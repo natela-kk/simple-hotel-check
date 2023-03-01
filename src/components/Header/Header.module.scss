@@ -1,0 +1,30 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 32px;
+    color: $text_dark;
+    background-color: $background;
+}
+
+.headerTitle {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    color: $text_dark;
+}
+
+.headerLogoutButton {
+    padding: 0;
+    padding-right: 36px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: -0.408px;
+    color: $text_dark_2;
+    background-color: transparent;
+    border: none;
+    background-image: url(../../images/logout.svg);
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    background-position: right center;
+}

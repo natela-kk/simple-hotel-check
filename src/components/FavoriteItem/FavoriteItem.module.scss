@@ -1,0 +1,33 @@
+.favoriteItem {
+    line-height: 22px;
+    letter-spacing: -0.408px;
+    color: $text_dark;
+}
+
+.favoriteItemTitle {
+    margin-bottom: 4px;
+    font-weight: 300;
+    font-size: 17px;
+}
+
+.favoriteItemDate {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.favoriteItemStars {
+    display: inline-block;
+}
+
+.favoriteItemPriceTitle {
+    margin-right: 8px;
+    font-weight: 300;
+    font-size: 11px;
+}
+
+.favoriteItemPriceCount {
+    font-weight: 400;
+    font-size: 17px;
+}
