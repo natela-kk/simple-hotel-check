@@ -30,14 +30,35 @@
     height: 50px;
     padding: 15px;
     box-sizing: border-box;
+    font-family: "Roboto";
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 20px;
+    color: $text_dark;
     border: 1px solid $border_light;
     border-radius: 4px;
 }
 
-.searchFormInput::placeholder {
+.searchFormInput[type="date"] {
     font-weight: 300;
     font-size: 16px;
     line-height: 20px;
+    color: $text_dark;
+}
+
+.searchFormInput[type="date"]::-webkit-calendar-picker-indicator {
+    width: 24px;
+    height: 24px;
+    background-image: url(../../images/calendar.svg);
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    background-position: right top 4px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .loginFormSubmitBtn {
@@ -53,4 +74,14 @@
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15);
     border: none;
     border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), linear-gradient(104.34deg, #41522E -15.34%, #BE8022 145.95%);
+    }
+
+    &:active {
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(104.34deg, #41522E -15.34%, #BE8022 145.95%);
+    }
+
 }
