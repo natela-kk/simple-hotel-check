@@ -34,7 +34,7 @@ function Card({ hotel, isSmall }: CardProps) {
   const [like, setLike] = useState(false);
 
   const handleClick = () => {
-    like ? setLike(false) : setLike(true);
+    setLike(!like);
     dispatch(setFavorite({ hotel, isSmall }));
     console.log('like');
   }

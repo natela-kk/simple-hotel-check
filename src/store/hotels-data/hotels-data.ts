@@ -38,39 +38,28 @@ export const hotelsData = createSlice({
         },
         setFavorite: (state, action) => {
             const updatedHotel = action.payload.hotel;
-            // const isFavoriteItem = action.payload.isSmall;
+            const isFavoriteItem = action.payload.isSmall;
 
-            console.log('43');
-            const updatedHotelIndex = state.favorites.findIndex((hotel) => {
-                console.log('hotel', hotel);
-                return hotel.hotelId === updatedHotel.id;
-            })
-            console.log('updatedHotelIndex', updatedHotelIndex);
-            console.log('state.favorites до добавления 1шт отеля');
-            console.log(state.favorites);
+            const updatedHotelIndex = state.favorites.findIndex((hotel) => hotel.hotelId === updatedHotel.hotelId);
 
             if (updatedHotelIndex !== -1) {
-                state.favorites = state.favorites.filter((hotel) => hotel.hotelId !== updatedHotel.id)
+                state.favorites = state.favorites.filter((hotel) => hotel.hotelId !== updatedHotel.hotelId)
             } else {
                 state.favorites = [
                     ...state.favorites, updatedHotel
                 ]
-
-                console.log('state.favorites после добавления 1шт отеля');
-                console.log(state.favorites);
             }
 
             // пытаюсь обработать дизлайк из избранного
-            // if (isFavoriteItem) {
-            //     // const updatedHotelIndex = state.hotels.findIndex((hotel) => hotel.id === updatedHotel.id);
-            //     // // state.hotels[updatedHotelIndex] = updatedHotel;
-            //     // state.hotels = [
-            //     //     ...state.hotels.slice(0, updatedHotelIndex),
-            //     //     updatedHotel,
-            //     //     ...state.hotels.slice(updatedHotelIndex + 1,),
-            //     // ]
-            //     // console.log(state.hotels)
-            // }
+            if (isFavoriteItem) {
+                const updatedHotelIndex = state.hotels.findIndex((hotel) => hotel.hotelId === updatedHotel.hotelId);
+                state.hotels[updatedHotelIndex] = updatedHotel;
+                state.hotels = [
+                    ...state.hotels.slice(0, updatedHotelIndex),
+                    updatedHotel,
+                    ...state.hotels.slice(updatedHotelIndex + 1,),
+                ]
+            }
         },
         setLocationState: (state, action) => {
             state.location = action.payload;

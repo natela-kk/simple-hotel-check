@@ -18,18 +18,19 @@ function Favorites() {
           className={styles.favoritesFilterInput}
           type="number"
           name="rating"
-          step="1"
-          min="1"
-          max="5"
+          step={1}
+          min={1}
+          max={5}
           placeholder='Рейтинг'
+          onChange={()}
         />
         <input
           className={styles.favoritesFilterInput}
           type="number"
           name="price"
-          step="1"
-          min="1000"
-          max="50000"
+          step={1}
+          min={1000}
+          max={50000}
           placeholder='Цена'
         />
       </div>
