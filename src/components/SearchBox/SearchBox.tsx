@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { fetchHotels } from '../../store/api-actions';
 import { setCheckInDate, setCheckOutDate, setDaysCountState, setLocationState } from '../../store/hotels-data/hotels-data';
-import { getCheckOutDate, getDate } from '../../utils/date';
+import { getCheckOutDate, getDate } from '../../utils/date-functions';
 import styles from './SearchBox.module.scss';
 
 

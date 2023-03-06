@@ -6,4 +6,5 @@ export type Hotel = {
   }
   priceFrom: number;
   stars: number;
+  isFavorite?: Boolean;
 };
