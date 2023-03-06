@@ -14,8 +14,6 @@ type InitialState = {
     daysCount: number,
     rating: string,
     price: string,
-
-    // isDataLoaded: Boolean,
 }
 
 const initialState: InitialState = {
@@ -83,10 +81,13 @@ export const hotelsData = createSlice({
                 ]
             }
 
-            console.log(updatedHotel.rating === state.rating);
-            console.log(updatedHotel.price <= state.price);
-            if (updatedHotel.rating === state.rating) state.filteredFavorites = state.favorites.filter(({ stars }) => +stars === updatedHotel.rating);
-            if (updatedHotel.price <= state.price) state.filteredFavorites = state.favorites.filter(({ priceFrom }) => priceFrom <= updatedHotel.price);
+            if (state.rating && !state.price) state.filteredFavorites = state.favorites.filter(({ stars }) => stars === +state.rating);
+            else if (state.price && !state.rating) state.filteredFavorites = state.favorites.filter(({ priceFrom }) => priceFrom <= +state.price);
+            else if (state.rating && state.price) {
+                state.filteredFavorites = state.favorites
+                    .filter(({ stars }) => stars === +state.rating)
+                    .filter(({ priceFrom }) => priceFrom <= +state.price)
+            }
         },
         setLocationState: (state, action) => {
             state.location = action.payload;
@@ -105,9 +106,8 @@ export const hotelsData = createSlice({
             state.price = price;
             state.rating = rating;
             if (price) state.filteredFavorites = state.favorites.filter(({ priceFrom }) => priceFrom <= +price);
-            console.log(typeof (rating));
             if (rating) state.filteredFavorites = state.favorites.filter(({ stars }) => stars === +rating);
-            if (price && rating) {
+            if (state.price && state.rating) {
                 state.filteredFavorites = state.favorites
                     .filter(({ stars }) => stars === +rating)
                     .filter(({ priceFrom }) => priceFrom <= +price)
