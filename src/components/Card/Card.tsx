@@ -15,12 +15,6 @@ type CardProps = {
 
 function Card({ hotel, isSmall, handleLikeClick, checkInDate, daysCount }: CardProps) {
 
-  // const getDelay = (cb: (string) => void) => {
-  //   setTimeout(() => {
-  //     cb()
-  //   })
-  // }
-
   const { hotelName, hotelId, priceFrom, stars, isFavorite } = hotel;
 
   return (

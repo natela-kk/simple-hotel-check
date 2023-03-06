@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { fetchHotels } from '../../store/api-actions';
+import { requestHotelsAction } from '../../store/api-actions';
+// import { fetchHotels } from '../../store/api-actions';
 import { setCheckInDate, setCheckOutDate, setDaysCountState, setLocationState } from '../../store/hotels-data/hotels-data';
 import { getCheckOutDate, getDate } from '../../utils/date-functions';
 import styles from './SearchBox.module.scss';
@@ -22,7 +23,8 @@ function SearchBox() {
     dispatch(setCheckInDate(checkIn));
     dispatch(setCheckOutDate(checkOut));
     dispatch(setDaysCountState(daysCount));
-    dispatch(fetchHotels(location, checkIn, checkOut));
+    dispatch(requestHotelsAction());
+    // dispatch(fetchHotels(location, checkIn, checkOut));
   }
 
   return (
