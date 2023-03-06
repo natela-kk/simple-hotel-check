@@ -12,8 +12,6 @@ function Main() {
   const navigate = useNavigate();
   const loginInfo = localStorage.getItem('loginInfo');
 
-  console.log(loginInfo);
-
   useEffect(() => {
     if(!loginInfo) {
       navigate(AppRoute.LogIn);

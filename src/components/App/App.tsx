@@ -1,4 +1,4 @@
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
+import { createHashRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import { AppRoute } from '../../AppRoute';
 import LogIn from '../../pages/LogIn/LogIn';
 import Main from '../../pages/Main/Main';
@@ -6,7 +6,7 @@ import NotFound from '../NotFound/NotFound';
 
 function App() {
 
-  const router = createBrowserRouter(
+  const router = createHashRouter(
     createRoutesFromElements(
       <>
         <Route

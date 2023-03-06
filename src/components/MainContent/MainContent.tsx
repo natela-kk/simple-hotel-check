@@ -1,38 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 import styles from './MainContent.module.scss';
 import carousel_1 from '../../images/carousel/carousel_1.jpg';
 import carousel_2 from '../../images/carousel/carousel_2.jpg';
 import carousel_3 from '../../images/carousel/carousel_3.jpg';
 import carousel_4 from '../../images/carousel/carousel_4.jpg';
 import Card from '../Card/Card';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import Alert from '../Alert/Alert';
+import { useAppDispatch } from '../../hooks';
 import { State } from '../../types/state';
 import { Hotel } from '../../types/hotel';
-import { NameSpace } from '../../store/NameSpace';
 import { fetchHotels } from '../../store/api-actions';
 import { setFavorite } from '../../store/hotels-data/hotels-data';
 import { getTitleDate } from '../../utils/date-functions';
 
+type MainContentProps = {
+  hotelsDoubles: Hotel[],
+  favorites: Hotel[],
+  location: string,
+  checkInDate: string,
+  checkOutDate: string,
+  daysCount: number,
+  alert: Boolean;
+}
 
-function MainContent() {
+function MainContent({ hotelsDoubles, favorites, location, checkInDate, checkOutDate, daysCount, alert }: MainContentProps) {
   const dispatch = useAppDispatch();
-
-  const hotelsDoubles = useAppSelector((state: State): Hotel[] => state[NameSpace.Hotels].hotelsDoubles);
-  const favorites = useAppSelector((state: State): Hotel[] => state[NameSpace.Hotels].favorites);
-  const location = useAppSelector((state: State): string => state[NameSpace.Hotels].location);
-  const checkInDate = useAppSelector((state: State): string => state[NameSpace.Hotels].checkInDate);
-  const checkOutDate = useAppSelector((state: State): string => state[NameSpace.Hotels].checkOutDate);
-  const daysCount = useAppSelector((state: State): number => state[NameSpace.Hotels].daysCount);
 
   const [isDragStart, setIsDragStart] = useState(false);
   const [prevPageX, setPrevPageX] = useState(0);
   const [prevSrollLeft, setPrevSrollLeft] = useState(0);
 
-  const handleLikeClick = (hotel: Hotel, isSmall: Boolean | undefined) => {
-    dispatch(setFavorite({ hotel, isSmall }));
-    console.log('like');
-  }
+  const handleLikeClick = useCallback((e: any) => {
+    const id = e.currentTarget.closest('div').dataset.id;
+    const small = e.currentTarget.closest('div').dataset.small;
+    dispatch(setFavorite({ id, small }));
+  }, [dispatch])
 
   const handleDrag = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
     e.preventDefault();
@@ -114,17 +118,32 @@ function MainContent() {
         <span className={styles.mainContentFavoritesCount}>{favorites.length}</span>
         отеля
       </p>
-      {hotelsDoubles.length ?
+      {alert ?
+        <Alert text={'Что-то пошло не так'} /> :
         <ul className={styles.mainContentHotelsList}>
           {hotelsDoubles.map((hotel) => (
             <li className={styles.mainContentHotelsItem} key={hotel.hotelId}>
               <Card hotel={hotel} handleLikeClick={handleLikeClick} checkInDate={checkInDate} daysCount={daysCount} />
             </li>
           ))}
-        </ul> : <></>}
+        </ul>
+      }
     </section>
   )
 };
 
+const mapDispatchToProps = {
 
-export default MainContent;
+}
+
+const mapStateToProps = (state: State) => ({
+  hotelsDoubles: state.HOTELS.hotelsDoubles,
+  favorites: state.HOTELS.favorites,
+  location: state.HOTELS.location,
+  checkInDate: state.HOTELS.checkInDate,
+  checkOutDate: state.HOTELS.checkOutDate,
+  daysCount: state.HOTELS.daysCount,
+  alert: state.ERROR.alert
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainContent);

@@ -18,7 +18,6 @@ function SearchBox() {
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     const checkOut = getCheckOutDate(checkIn, daysCount);
     e.preventDefault();
-    console.log('submit');
     dispatch(setLocationState(location));
     dispatch(setCheckInDate(checkIn));
     dispatch(setCheckOutDate(checkOut));

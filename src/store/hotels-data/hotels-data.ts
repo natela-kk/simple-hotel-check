@@ -52,25 +52,33 @@ export const hotelsData = createSlice({
             })
         },
         setFavorite: (state, action) => {
-            const updatedHotel = action.payload.hotel;
-            const isFavoriteItem = action.payload.isSmall;
+            const id = +action.payload.id;
+            const small = action.payload.small ? true : false;
+            console.log("id",id, "small", small);
+            console.log("action.payload.small",action.payload.small, typeof(action.payload.small));
 
-            const updatedHotelIndexInFav = state.favorites.findIndex((hotel) => hotel.hotelId === updatedHotel.hotelId);
-            const updatedHotelIndexInHotels = state.hotelsDoubles.findIndex((hotel) => hotel.hotelId === updatedHotel.hotelId);
+            const updatedHotelIndexInFav = state.favorites.findIndex((hotel) => hotel.hotelId === id);
+            const updatedHotelIndexInHotels = state.hotelsDoubles.findIndex((hotel) => hotel.hotelId === id);
 
-            if (updatedHotelIndexInFav !== -1 || isFavoriteItem) {
-                const dislikedHotel = { ...updatedHotel, isFavorite: false };
+            if (updatedHotelIndexInFav !== -1 || small) {
+                const dislikedHotel = { ...state.favorites[updatedHotelIndexInFav], isFavorite: false };
                 state.favorites[updatedHotelIndexInFav] = dislikedHotel;
-                state.favorites = state.favorites.filter((hotel) => hotel.hotelId !== updatedHotel.hotelId)
-                if (!isFavoriteItem || (updatedHotelIndexInHotels !== -1 && isFavoriteItem)) {
+                state.favorites = state.favorites.filter((hotel) => hotel.hotelId !== id)
+                if (!small || (updatedHotelIndexInHotels !== -1 && small)) {
                     state.hotelsDoubles = [
                         ...state.hotelsDoubles.slice(0, updatedHotelIndexInHotels),
                         dislikedHotel,
                         ...state.hotelsDoubles.slice(updatedHotelIndexInHotels + 1,),
                     ]
+                    console.log(small, updatedHotelIndexInFav, updatedHotelIndexInHotels);
                 }
             } else {
-                const likedHotel = { ...updatedHotel, isFavorite: true };
+                console.log(state.hotelsDoubles);
+                console.log(state.hotelsDoubles[updatedHotelIndexInHotels]);
+                console.log(updatedHotelIndexInHotels);
+                const likedHotel = { ...state.hotelsDoubles[updatedHotelIndexInHotels], isFavorite: true };
+                console.log(likedHotel);
+                console.log(updatedHotelIndexInHotels);
                 state.favorites = [
                     ...state.favorites, likedHotel
                 ]
@@ -79,6 +87,7 @@ export const hotelsData = createSlice({
                     likedHotel,
                     ...state.hotelsDoubles.slice(updatedHotelIndexInHotels + 1,),
                 ]
+                console.log(state.hotelsDoubles);
             }
 
             if (state.rating && !state.price) state.filteredFavorites = state.favorites.filter(({ stars }) => stars === +state.rating);

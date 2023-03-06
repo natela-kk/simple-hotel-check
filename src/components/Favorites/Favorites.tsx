@@ -1,48 +1,50 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { useAppDispatch } from '../../hooks';
 import { filterFavorites, setFavorite } from '../../store/hotels-data/hotels-data';
-import { NameSpace } from '../../store/NameSpace';
 import { Hotel } from '../../types/hotel';
 import { State } from '../../types/state';
 import Card from '../Card/Card';
 import styles from './Favorites.module.scss';
 
+type FavoritesProps = {
+  favorites: Hotel[],
+  filteredFavorites: Hotel[],
+  location: string,
+  checkInDate: string,
+  daysCount: number,
+  rating: string,
+  price: string,
+}
 
-function Favorites() {
+function Favorites({ filteredFavorites, favorites, location, checkInDate, daysCount, rating, price }: FavoritesProps) {
 
   const dispatch = useAppDispatch();
-  const favorites = useAppSelector((state: State): Hotel[] => state[NameSpace.Hotels].favorites);
-  const filteredFavorites = useAppSelector((state: State): Hotel[] => state[NameSpace.Hotels].filteredFavorites);
-  const checkInDate = useAppSelector((state: State): string => state[NameSpace.Hotels].checkInDate);
-  const daysCount = useAppSelector((state: State): number => state[NameSpace.Hotels].daysCount);
-  const rating = useAppSelector((state: State): string => state[NameSpace.Hotels].rating);
-  const price = useAppSelector((state: State): string => state[NameSpace.Hotels].price);
 
   const [relevantFavorites, setRelevantFavorites] = useState(filteredFavorites);
 
-  const handleLikeClick = (hotel: Hotel, isSmall: Boolean | undefined) => {
-    dispatch(setFavorite({ hotel, isSmall }));
-  }
+  const handleLikeClick = useCallback((e: any) => {
+    const id = e.currentTarget.closest('div').dataset.id;
+    const small = e.currentTarget.closest('div').dataset.small;
+    dispatch(setFavorite({ id, small }));
+  }, [dispatch])
 
   const handleRatingChange = (e: ChangeEvent<HTMLInputElement>) => {
     const rating = e.currentTarget.value;
-    dispatch(filterFavorites({price, rating}));
+    dispatch(filterFavorites({ price, rating }));
     setRelevantFavorites(filteredFavorites);
   }
 
   const handlePriceChange = (e: ChangeEvent<HTMLInputElement>) => {
     const price = e.currentTarget.value;
-    dispatch(filterFavorites({price, rating}));
+    dispatch(filterFavorites({ price, rating }));
     setRelevantFavorites(filteredFavorites);
   }
 
   useEffect(() => {
     if (filteredFavorites.length || rating || price) {
-      console.log(filteredFavorites);
-      console.log(40);
       setRelevantFavorites(filteredFavorites);
     } else {
-      console.log(43);
       setRelevantFavorites(favorites);
     }
   }, [favorites, filteredFavorites, price, rating])
@@ -89,4 +91,14 @@ function Favorites() {
   );
 }
 
-export default Favorites;
+const mapStateToProps = (state: State) => ({
+  favorites: state.HOTELS.favorites,
+  filteredFavorites: state.HOTELS.filteredFavorites,
+  location: state.HOTELS.location,
+  checkInDate: state.HOTELS.checkInDate,
+  daysCount: state.HOTELS.daysCount,
+  rating: state.HOTELS.rating,
+  price: state.HOTELS.price,
+})
+
+export default connect(mapStateToProps)(Favorites);

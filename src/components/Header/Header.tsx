@@ -8,9 +8,7 @@ function Header() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    console.log(localStorage);
     localStorage.clear();
-    console.log(localStorage);
     navigate(AppRoute.LogIn);
   }
 
