@@ -1,9 +1,9 @@
-import { setHotels } from './hotels-data/hotels-data';
+import { setHotels, setHotelsDoubles } from './hotels-data/hotels-data';
 
 
 export const fetchHotels = (location: string, checkIn: string, checkOut: string) => {
   console.log('fetchHotels start')
-  return async (dispatch: (arg0: { payload: any; type: "HOTELS/setHotels"; }) => void) => {
+  return async (dispatch: (arg0: { payload: any; }) => void) => {
     try {
     } catch (error) {
     }
@@ -11,5 +11,6 @@ export const fetchHotels = (location: string, checkIn: string, checkOut: string)
     const json = await response.json();
     console.log(json)
     dispatch(setHotels(json));
+    dispatch(setHotelsDoubles());
   }
 }

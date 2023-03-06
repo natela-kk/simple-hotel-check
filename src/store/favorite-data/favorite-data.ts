@@ -4,36 +4,29 @@ import { NameSpace } from '../NameSpace';
 
 
 type InitialState = {
-    favorites1: Hotel[],
+    favorites: Hotel[],
+    filteredFavorites: Hotel[]
 }
 
 const initialState: InitialState = {
-    favorites1: [],
+    favorites: [],
+    filteredFavorites: []
 };
 
 export const favoriteData = createSlice({
     name: NameSpace.Favorite,
     initialState,
     reducers: {
-        setFavorite: (state, action) => {
-            const updatedHotel = action.payload;
-            const updatedHotelIndex = state.favorites1.findIndex((hotel) => hotel.hotelId === updatedHotel.hotel.id);
-            console.log("updatedHotel.id");
-            console.log(state.favorites1);
+        setFavoriteList: (state, action) => {
             
-            if (updatedHotelIndex !== -1) {
-                console.log(updatedHotelIndex);
-                state.favorites1 = state.favorites1.filter((hotel) => hotel.hotelId !== updatedHotel.hotel.id)
-            } else {
-                console.log(updatedHotel.hotel);
-                console.log(state.favorites1);
-                state.favorites1 = [
-                    ...state.favorites1, updatedHotel.hotel
-                ]
-                console.log(state.favorites1);
-            }
+        },
+        filterByRating: (state, action) => {
+            // state.fa = action.payload;
+        },
+        filterByPrice: (state, action) => {
+            // state.price = action.payload;
         }
     }
 })
 
-export const { setFavorite } = favoriteData.actions;
+export const { setFavoriteList, filterByRating, filterByPrice } = favoriteData.actions;

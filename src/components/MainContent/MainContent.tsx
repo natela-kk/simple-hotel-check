@@ -11,42 +11,28 @@ import { State } from '../../types/state';
 import { Hotel } from '../../types/hotel';
 import { NameSpace } from '../../store/NameSpace';
 import { fetchHotels } from '../../store/api-actions';
+import { setFavorite } from '../../store/hotels-data/hotels-data';
+import { getTitleDate } from '../../utils/date-functions';
 
 
 function MainContent() {
   const dispatch = useAppDispatch();
 
-  const hotels = useAppSelector((state: State): Hotel[] => state[NameSpace.Hotels].hotels);
+  const hotelsDoubles = useAppSelector((state: State): Hotel[] => state[NameSpace.Hotels].hotelsDoubles);
+  const favorites = useAppSelector((state: State): Hotel[] => state[NameSpace.Hotels].favorites);
   const location = useAppSelector((state: State): string => state[NameSpace.Hotels].location);
   const checkInDate = useAppSelector((state: State): string => state[NameSpace.Hotels].checkInDate);
   const checkOutDate = useAppSelector((state: State): string => state[NameSpace.Hotels].checkOutDate);
+  const daysCount = useAppSelector((state: State): number => state[NameSpace.Hotels].daysCount);
 
   const [isDragStart, setIsDragStart] = useState(false);
   const [prevPageX, setPrevPageX] = useState(0);
   const [prevSrollLeft, setPrevSrollLeft] = useState(0);
 
-  const images = [
-    <img
-      src={carousel_1}
-      width='164px'
-      height='149px'
-      alt='carousel item' />,
-    <img
-      src={carousel_2}
-      width='164px'
-      height='149px'
-      alt='carousel item' />,
-    <img
-      src={carousel_3}
-      width='164px'
-      height='149px'
-      alt='carousel item' />,
-    <img
-      src={carousel_4}
-      width='164px'
-      height='149px'
-      alt='carousel item' />
-  ]
+  const handleLikeClick = (hotel: Hotel, isSmall: Boolean | undefined) => {
+    dispatch(setFavorite({ hotel, isSmall }));
+    console.log('like');
+  }
 
   const handleDrag = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
     e.preventDefault();
@@ -64,91 +50,81 @@ function MainContent() {
     e.preventDefault();
     let positionDiff = e.pageX - prevPageX;
     e.currentTarget.scrollLeft = prevSrollLeft - positionDiff;
-
-    // console.log(e.currentTarget.children[firstImage].getBoundingClientRect().left)
-    // if (positionDiff < -270 || positionDiff > 170) {
-    //   setFirstImage(firstImage === images.length - 1 ? 0 : firstImage + 1)
-    // }
   }
-
-  // Индекс текущего слайда
-  // const [firstImage, setFirstImage] = useState(0);
-  // const [firstImageLeft, setfirstImageLeft] = useState(0);
-
-  // Хук Effect
-  // useEffect(() => {
-  //   setfirstImageLeft()
-  // Запускаем интервал
-  // setInterval(() => {
-  // Меняем состояние
-  // setActiveIndex((current: number) => {
-  // Вычисляем индекс следующего слайда, который должен вывестись
-  // const res = current === images.length - 1 ? 0 : current + 1
-  // Возвращаем индекс
-  //     return res
-  // })
-  // }, 3000)
-  // Выключаем интервал
-  //   return () => clearInterval(0)
-  // }, [])
-
-  // Вычисляем индекс предыдущего слайда
-  // const firstImage = activeIndex ? activeIndex - 1 : images.length - 1
-  // const firstImage = 0;
-  // Вычисляем индекс следующего слайда
-  // const nextImgIndex = activeIndex === images.length - 1 ? 0 : activeIndex + 1
 
   useEffect(() => {
     dispatch(fetchHotels(location, checkInDate, checkOutDate));
   }, [checkInDate, checkOutDate, dispatch, location])
 
-  if (hotels.length) {
-    return (
-      <section className={styles.mainContent}>
-        <h2 className='visually-hidden'>Список отелей</h2>
-        <div className={styles.mainContentTopWrapper}>
-          <ul className={styles.mainContentBreadcrumbs}>
-            <li className={styles.mainContentBreadcrumbsItem}>Отели</li>
-            <li className={styles.mainContentBreadcrumbsItem}>Москва</li>
-          </ul>
-          <span className={styles.mainContentDate}>07 июля 2020</span>
-        </div>
-        <ul
-          className={classNames(
-            styles.mainContentCourusel,
-            { [styles.mainContentCourusel__active]: isDragStart }
-          )}
-          onMouseDown={(e) => {
-            handleDrag(e)
-          }}
-          onMouseUp={handleCouruselTouchEnd}
-          onMouseMove={(e) => {
-            handleMouseMove(e)
-          }}
-          onMouseLeave={handleCouruselTouchEnd}
-        >
-          {images.map((item, ind) => (
-            <li className={styles.mainContentGalleryItem} key={ind}>
-              {item}
-            </li>
-          ))}
+  return (
+    <section className={styles.mainContent}>
+      <h2 className='visually-hidden'>Список отелей</h2>
+      <div className={styles.mainContentTopWrapper}>
+        <ul className={styles.mainContentBreadcrumbs}>
+          <li className={styles.mainContentBreadcrumbsItem}>Отели</li>
+          <li className={styles.mainContentBreadcrumbsItem}>{location}</li>
         </ul>
-        <p className={styles.mainContentFavoritesInfo}>
-          Добавлено в Избранное:
-          <span className={styles.mainContentFavoritesCount}>3</span>
-          отеля
-        </p>
+        <span className={styles.mainContentDate}>{getTitleDate(new Date(checkInDate))}</span>
+      </div>
+      <ul
+        className={classNames(
+          styles.mainContentCourusel,
+          { [styles.mainContentCourusel__active]: isDragStart }
+        )}
+        onMouseDown={(e) => {
+          handleDrag(e)
+        }}
+        onMouseUp={handleCouruselTouchEnd}
+        onMouseMove={(e) => {
+          handleMouseMove(e)
+        }}
+        onMouseLeave={handleCouruselTouchEnd}
+      >
+        <li className={styles.mainContentGalleryItem}>
+          <img
+            src={carousel_1}
+            width='164px'
+            height='149px'
+            alt='carousel item' />
+        </li>
+        <li className={styles.mainContentGalleryItem}>
+          <img
+            src={carousel_2}
+            width='164px'
+            height='149px'
+            alt='carousel item' />
+        </li>
+        <li className={styles.mainContentGalleryItem}>
+          <img
+            src={carousel_3}
+            width='164px'
+            height='149px'
+            alt='carousel item' />
+        </li>
+        <li className={styles.mainContentGalleryItem}>
+          <img
+            src={carousel_4}
+            width='164px'
+            height='149px'
+            alt='carousel item' />
+        </li>
+      </ul>
+      <p className={styles.mainContentFavoritesInfo}>
+        Добавлено в Избранное:
+        <span className={styles.mainContentFavoritesCount}>{favorites.length}</span>
+        отеля
+      </p>
+      {hotelsDoubles.length ?
         <ul className={styles.mainContentHotelsList}>
-          {hotels.map((hotel) => (
+          {hotelsDoubles.map((hotel) => (
             <li className={styles.mainContentHotelsItem} key={hotel.hotelId}>
-              <Card hotel={hotel} />
+              <Card hotel={hotel} handleLikeClick={handleLikeClick} checkInDate={checkInDate} daysCount={daysCount} />
             </li>
           ))}
-        </ul>
-      </section>
-    )
-  }
-  return <></>;
+        </ul> : <></>}
+    </section>
+  )
 };
+
 
 export default MainContent;
