@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/simple-hotel-check/static/css/main.9747d364.css",
+    "main.js": "/simple-hotel-check/static/js/main.e9064787.js",
+    "static/media/background.jpg": "/simple-hotel-check/static/media/background.308c2dfdf01560c791c2.jpg",
+    "static/media/Roboto-Medium.ttf": "/simple-hotel-check/static/media/Roboto-Medium.7c8d04cd831df3033c8a.ttf",
+    "static/media/Roboto-Regular.ttf": "/simple-hotel-check/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
+    "static/media/Roboto-Light.ttf": "/simple-hotel-check/static/media/Roboto-Light.333da16a3f3cc391d087.ttf",
+    "static/media/Roboto-Medium.woff": "/simple-hotel-check/static/media/Roboto-Medium.b14ca2d2b289afceb0b0.woff",
+    "static/media/Roboto-Regular.woff": "/simple-hotel-check/static/media/Roboto-Regular.31012f9b3e3da44f87e8.woff",
+    "static/media/Roboto-Light.woff": "/simple-hotel-check/static/media/Roboto-Light.df0f59d80526acc6d0cd.woff",
+    "static/media/carousel_4.jpg": "/simple-hotel-check/static/media/carousel_4.d8402812f4e40abae85c.jpg",
+    "static/media/stars.svg": "/simple-hotel-check/static/media/stars.91e50ace59d5fdb7b108.svg",
+    "static/media/carousel_3.jpg": "/simple-hotel-check/static/media/carousel_3.73d8a1b4ce32018955df.jpg",
+    "static/media/carousel_1.jpg": "/simple-hotel-check/static/media/carousel_1.d68619ef6a174f8d05ab.jpg",
+    "static/media/stars-active.svg": "/simple-hotel-check/static/media/stars-active.27f991f83bb5ca1ae230.svg",
+    "static/media/house.svg": "/simple-hotel-check/static/media/house.748bc6ba751044d49312.svg",
+    "index.html": "/simple-hotel-check/index.html",
+    "static/media/logout.svg": "/simple-hotel-check/static/media/logout.6541d62259e476273265.svg",
+    "static/media/calendar.svg": "/simple-hotel-check/static/media/calendar.b50945586ec81bf062b0.svg",
+    "static/media/arrow.svg": "/simple-hotel-check/static/media/arrow.ecfc16f7a5f0685dc819.svg",
+    "main.9747d364.css.map": "/simple-hotel-check/static/css/main.9747d364.css.map",
+    "main.e9064787.js.map": "/simple-hotel-check/static/js/main.e9064787.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9747d364.css",
+    "static/js/main.e9064787.js"
+  ]
+}
