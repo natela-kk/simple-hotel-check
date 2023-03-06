@@ -11,7 +11,7 @@ import Alert from '../Alert/Alert';
 import { useAppDispatch } from '../../hooks';
 import { State } from '../../types/state';
 import { Hotel } from '../../types/hotel';
-import { requestHotelsAction } from '../../store/api-actions';
+import { requestHotels } from '../../store/api-actions';
 import { setFavorite } from '../../store/hotels-data/hotels-data';
 import { getTitleDate } from '../../utils/date-functions';
 
@@ -57,9 +57,7 @@ function MainContent({ hotelsDoubles, favorites, location, checkInDate, checkOut
   }
 
   useEffect(() => {
-    console.log(requestHotelsAction);
-    dispatch(requestHotelsAction());
-    // dispatch(fetchHotels(location, checkInDate, checkOutDate));
+    dispatch(requestHotels());
   }, [checkInDate, checkOutDate, dispatch, location])
 
   return (
