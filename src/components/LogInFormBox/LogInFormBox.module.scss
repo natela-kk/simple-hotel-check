@@ -44,7 +44,7 @@
     margin-bottom: 24px;
 
     &.loginFormLoginInvalid::after {
-        content: "Введите корректный адрес электронной почты";
+        content: "Латиница или цифры, минимум 1 символ";
         position: absolute;
         bottom: -6px;
         left: 0;

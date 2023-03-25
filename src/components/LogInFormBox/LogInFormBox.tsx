@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../AppRoute';
 import styles from './LogInFormBox.module.scss';
 
-const LOGIN_REGEXP = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const LOGIN_REGEXP = /^(([0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+)))$/;
 const PASSWORD_REGEXP = /(?=.{8,}$)(?=.*[a-zA-Z0-9])/;
 
 function LogInFormBox() {
